@@ -10,6 +10,7 @@
     $if(title)$<title>$title$</title>$endif$
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
@@ -19,11 +20,25 @@ $for(header-includes)$
 $endfor$
 
 
-$if(toc)$
-$toc$
-$endif$
+<div id="main-container" class="container is-fluid">
+    <div class="columns">
+        <div class="column is-one-quarter">
+            <div class="card">
+                <header id="nav-header" class="card-header">📚 Books</header>
 
-$body$
+                <div class="card-content">
+                    $toc$
+                </div>
+            </div>
+        </div>
+
+
+        <div id="main-content" class="column">
+            $body$
+        </div>
+    </div>
+</div>
+
 
 $for(include-after)$
     $include-after$
