@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang"en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,
+        initial-scalable=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="pandoc">
+    $if(author)$<meta name="author" content="$author$">$endif$
+    $if(description)$<meta name="description" content="$description$">$endif$
+    $if(title)$<title>$title$</title>$endif$
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+</head>
+<body>
+
+$for(header-includes)$
+    $header-includes$
+$endfor$
+
+
+$if(toc)$
+$toc$
+$endif$
+
+$body$
+
+$for(include-after)$
+    $include-after$
+$endfor$
+
+</body>
+</html>
