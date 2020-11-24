@@ -22,8 +22,9 @@ offset=0
 
 while : ; do
     fullfilename=$(sqlite3 KoboReader.sqlite "select VolumeId from Bookmark limit 1 offset $offset")
-    date=$(sqlite3 KoboReader.sqlite "select DateModified from Bookmark limit 1 offset $offset")
+    date_raw=$(sqlite3 KoboReader.sqlite "select DateCreated from Bookmark limit 1 offset $offset")
     highlight=$(sqlite3 KoboReader.sqlite "select Text from Bookmark limit 1 offset $offset")
+    annotation=$(sqlite3 KoboReader.sqlite "select Annotation from Bookmark limit 1 offset $offset")
 
     if [ "$fullfilename" = "" ]; then
         break
@@ -32,23 +33,45 @@ while : ; do
     # fullfilename=$(echo "$raw_entry" | cut -f1 -d"|")
     filepath="${fullfilename%.*}"
     filename=$(basename "$filepath")
-    echo "$filename"
+    bookname=$(echo "$filename" | cut -f1 -d"_" | cut -f1 -d"-")
+    echo "$bookname"
 
-    if [ "$filename" != "$current_book" ]; then
-        current_book="$filename"
+    if [ "$bookname" != "$current_book" ]; then
+        current_book="$bookname"
         {
         echo ""
-        echo "# $filename"
+        echo "# $bookname"
         echo ""
         } >> "$MD_OUTPUT_FILE"
     fi
 
-    # highlight=$(cut -f2 -d"|" "$raw_entry")
-    # date=$(cut -f3 -d"|" "$raw_entry")
+    date=$(echo "$date_raw" | cut -f1 -d"T")
 
-    # echo "$raw_entry" >> "$MD_OUTPUT_FILE"
+    echo "$highlight" | while read -r line
+    do
+        if [ "$line" != "" ]; then
+            echo "> $line" >> "$MD_OUTPUT_FILE"
+        fi
+    done
+
+    {
+    echo "*$date*"
+    echo ""
+    echo ""
+    } >> "$MD_OUTPUT_FILE"
+
+    echo "$annotation" | while read -r line
+    do
+        if [ "$line" != "" ]; then
+            echo "| $line" >> "$MD_OUTPUT_FILE"
+        fi
+    done
+
+    {
+    echo ""
+    echo ""
+    } >> "$MD_OUTPUT_FILE"
+
 
     offset=$((offset+1))
 done
-
-# file:///mnt/onboard/Parker, Matt/Humble Pi_ A Comedy of Maths Errors - Matt Parker.epub|Programming is just formalized mathematical thought and processes.|2020-10-08T18:29:46Z
