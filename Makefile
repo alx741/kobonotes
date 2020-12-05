@@ -3,6 +3,7 @@ kobo.html: out.md
 
 out.md:
 	./generate.sh KoboReader.sqlite out.md
+	#./kobonotes KoboReader.sqlite out.md
 
 clean:
 	rm -f out.md kobo.html
