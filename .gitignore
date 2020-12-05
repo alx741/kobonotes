@@ -1,3 +1,5 @@
 *.sqlite
+*.sqlite*
 *.html
 *.md
+dist-newstyle
