@@ -1,10 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Extraction where
+module Extraction
+    ( extractBooks
+    ) where
 
 import Data.List              (foldl', groupBy)
 import Data.Text              hiding (foldl', groupBy)
 import Database.SQLite.Simple
+
 import Types
 
 

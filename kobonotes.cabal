@@ -19,6 +19,7 @@ executable kobonotes
   other-modules:
                        Types
                      , Extraction
+                     , Generation
   -- other-extensions:
   build-depends:       base          >=4.13     && <4.14
                      , time          >=1.9.3    && <2.0.0
