@@ -16,7 +16,7 @@ h1 {
 
 
 h1:not(:first-child) {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 #main-content {

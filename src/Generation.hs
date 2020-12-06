@@ -23,6 +23,7 @@ bookEntry (Book title author highlights)
     <> "# "  <> title  <> "\n"
     <> "## " <> author <> "\n\n"
     <> T.concat (highlightEntry <$> highlights)
+    <> "-------"
 
 highlightEntry :: Highlight -> Text
 highlightEntry (Highlight highl note date)
