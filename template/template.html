@@ -17,6 +17,10 @@
     margin: 20px auto;
 }
 
+#toc-container ul ul{
+    display: none;
+}
+
 h1 {
     font-size: 2em;
     margin-bottom: .5em;
@@ -97,7 +101,7 @@ $endfor$
 
 <div id="main-container" class="container is-fluid">
     <div class="columns">
-        <div class="column is-one-quarter">
+        <div id="toc-container" class="column is-one-quarter">
             <div class="card">
                 <header id="nav-header" class="card-header">📚 Books</header>
 
@@ -108,7 +112,7 @@ $endfor$
         </div>
 
 
-        <div id="main-content" class="column">
+        <div id="main-content" class="column is-three-quarters">
             $body$
         </div>
     </div>
