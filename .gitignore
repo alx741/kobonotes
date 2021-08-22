@@ -3,5 +3,5 @@
 *.html
 *.pdf
 *.epub
-*.md
+out.md
 dist-newstyle
