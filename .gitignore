@@ -1,5 +1,7 @@
 *.sqlite
 *.sqlite*
 *.html
+*.pdf
+*.epub
 *.md
 dist-newstyle

@@ -8,14 +8,22 @@ import           Data.Bool    (bool)
 import           Data.Maybe   (isJust)
 import           Data.Text as T
 import qualified Data.Text.IO as TIO
+import Data.Time.Format
+import Data.Time
 
 import Types
 
 
 writeMarkdown :: FilePath -> [Book] -> IO ()
-writeMarkdown fp books = TIO.writeFile fp
-    $   header
-    <> T.concat (bookEntry <$> books)
+writeMarkdown fp books = do
+
+    currentTime <- getCurrentTime
+
+    let time = pack $ formatTime defaultTimeLocale "%B %Y" currentTime
+
+    TIO.writeFile fp
+        $   header time
+        <> T.concat (bookEntry <$> books)
 
 bookEntry :: Book -> Text
 bookEntry (Book title author highlights)
@@ -38,12 +46,13 @@ highlightEntry (Highlight highl note date)
                         Just    n  -> Just n
                         Nothing    -> Nothing
 
-header :: Text
-header = "---\n"
+header :: Text -> Text
+header time = "---\n"
        <> "title: Kobo highlights & notes\n"
+       <> "author: kobonotes.sillybytse.net\n"
+       <> "date: kobonotes.sillybytse.net\n"
        <> "...\n"
        <> "\n"
-       <> "\\tableofcontents\n"
 
 
 -- prepend :: Text -> Text -> Text
