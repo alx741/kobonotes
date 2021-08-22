@@ -19,5 +19,7 @@ Kobo ereader device.
 3. Generate aggregate file:
 
     $ make kobo.html
+
     $ make kobo.pdf
+
     $ make kobo.epub
