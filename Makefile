@@ -1,3 +1,5 @@
+KOBO_SQL_FILE=KoboReader.sqlite
+
 kobo.html: out.md
 	pandoc $< -o $@ --toc --toc-depth=1 --template ./template/template.html --standalone --mathjax
 
@@ -8,7 +10,7 @@ kobo.epub: out.md
 	pandoc $< -o $@ --toc --toc-depth=1 --standalone --mathjax
 
 out.md: KoboReader.sqlite
-	cabal run kobonotes -- KoboReader.sqlite out.md
+	cabal run kobonotes -- $(KOBO_SQL_FILE) out.md
 
 clean:
 	rm -f out.md kobo.html kobo.pdf kobo.epub
