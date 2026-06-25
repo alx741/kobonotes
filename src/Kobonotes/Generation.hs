@@ -1,29 +1,25 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Generation
-    (writeMarkdown
+module Kobonotes.Generation
+    ( renderMarkdown
+    , writeMarkdown
     ) where
 
-import           Data.Bool    (bool)
-import           Data.Maybe   (isJust)
 import           Data.Text as T
 import qualified Data.Text.IO as TIO
-import Data.Time.Format
-import Data.Time
+import           Data.Time.Clock (UTCTime)
+import           Data.Time.Format
 
-import Types
+import Kobonotes.Types
 
 
-writeMarkdown :: FilePath -> [Book] -> IO ()
-writeMarkdown fp books = do
+renderMarkdown :: UTCTime -> [Book] -> Text
+renderMarkdown time books =
+    let timeStr = pack $ formatTime defaultTimeLocale "%B %Y" time
+    in  header timeStr <> T.concat (bookEntry <$> books)
 
-    currentTime <- getCurrentTime
-
-    let time = pack $ formatTime defaultTimeLocale "%B %Y" currentTime
-
-    TIO.writeFile fp
-        $   header time
-        <> T.concat (bookEntry <$> books)
+writeMarkdown :: FilePath -> UTCTime -> [Book] -> IO ()
+writeMarkdown fp time books = TIO.writeFile fp (renderMarkdown time books)
 
 bookEntry :: Book -> Text
 bookEntry (Book title author highlights)
@@ -53,7 +49,3 @@ header time = "---\n"
        <> "date: kobonotes.sillybytse.net\n"
        <> "...\n"
        <> "\n"
-
-
--- prepend :: Text -> Text -> Text
--- prepend a b = a <> b

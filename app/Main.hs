@@ -1,16 +1,15 @@
 module Main where
 
-import Control.Monad (forM_)
-
+import Data.Time.Clock (getCurrentTime)
 import System.Environment
 
-import Types
-import Extraction
-import Generation
+import Kobonotes.Extraction
+import Kobonotes.Generation
 
 main :: IO ()
 main = do
     (dbFile:outFile:_) <- getArgs
     books <- extractBooks dbFile
-    writeMarkdown outFile books
+    now <- getCurrentTime
+    writeMarkdown outFile now books
     putStrLn $ "Extracted highlights & notes for " <> show (length books) <> " books"

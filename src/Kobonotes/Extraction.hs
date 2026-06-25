@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Extraction
+module Kobonotes.Extraction
     ( extractBooks
     ) where
 
@@ -8,7 +8,7 @@ import Data.List              (foldl', groupBy)
 import Data.Text              hiding (foldl', groupBy)
 import Database.SQLite.Simple
 
-import Types
+import Kobonotes.Types
 
 
 grandQuery = "SELECT Bookmark.VolumeID, Title, Attribution, Text, Annotation, Bookmark.DateCreated \

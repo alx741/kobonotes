@@ -1,7 +1,6 @@
-module Types where
+module Kobonotes.Types where
 
 import Data.Text
-import Data.Time.Clock (UTCTime)
 
 data Book = Book
     { title      :: Text
